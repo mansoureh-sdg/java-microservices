@@ -30,6 +30,7 @@
 	<modules>
         <module>atm-service</module>
         <module>bank-service</module>
+		<module>common</module>
     </modules>
 	
 	<dependencyManagement>

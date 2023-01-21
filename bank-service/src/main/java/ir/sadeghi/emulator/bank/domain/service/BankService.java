@@ -1,12 +1,9 @@
 package ir.sadeghi.emulator.bank.domain.service;
 
-import ir.sadeghi.emulator.bank.domain.exception.AccountBusinessException;
-import ir.sadeghi.emulator.bank.domain.exception.AccountDBException;
-import ir.sadeghi.emulator.bank.domain.exception.CashWithdrawFailureException;
-import ir.sadeghi.emulator.bank.domain.exception.UserAuthenticationFailureException;
 import ir.sadeghi.emulator.bank.domain.model.Card;
 import ir.sadeghi.emulator.bank.domain.model.PreferredAuthentication;
-import ir.sadeghi.emulator.bank.domain.valueobject.*;
+import ir.sadeghi.emulator.common.domain.exception.*;
+import ir.sadeghi.emulator.common.domain.valueobject.*;
 
 import org.springframework.stereotype.Service;
 

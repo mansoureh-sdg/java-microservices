@@ -1,8 +1,8 @@
 package ir.sadeghi.emulator.bank.resources;
 
-import ir.sadeghi.emulator.bank.domain.exception.CashWithdrawFailureException;
+import ir.sadeghi.emulator.common.domain.exception.CashWithdrawFailureException;
 import ir.sadeghi.emulator.bank.domain.service.BankService;
-import ir.sadeghi.emulator.bank.domain.valueobject.*;
+import ir.sadeghi.emulator.common.domain.valueobject.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -72,18 +72,18 @@ public class BankController {
     }
 
 
-    @GetMapping("/checkCardNumber")
-    ResponseEntity<CheckingCardResult> checkCardNumber(@RequestBody String pan) throws CashWithdrawFailureException {
+    @GetMapping("/checkCardNumber/{pan}")
+    ResponseEntity<CheckingCardRes> checkCardNumber(@PathVariable("restaurant-id")  String pan) throws CashWithdrawFailureException {
         try {
             CardDTO card = bankService.checkCardNumber(pan);
             if (card != null) {
-                return new ResponseEntity(new CheckingCardResult(card.getPan(), card.getOwnerName(), card.getPreferredAuthentication()), HttpStatus.OK);
+                return new ResponseEntity(new CheckingCardRes(card.getPan(), card.getOwnerName(), card.getPreferredAuthentication()), HttpStatus.OK);
             } else {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Card not found");
             }
         } catch (Exception e) {
             logger.log(Level.WARNING, "Exception raised checkCardNumber REST Call", e);
-            return new ResponseEntity<CheckingCardResult>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<CheckingCardRes>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -120,6 +120,17 @@ public class BankController {
             logger.log(Level.WARNING, "Exception raised authenticateWithFingerPrint REST Call", e);
             return new ResponseEntity<AuthenticationResult>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    
+    /**
+     * Fallback method for checkCardNumber()
+     *
+     * @param pan
+     * @return
+     */
+    public ResponseEntity<CheckingCardRes> defaultCard(
+            @PathVariable String pan) {
+        return new ResponseEntity<>(null, HttpStatus.BAD_GATEWAY);
     }
 }
 

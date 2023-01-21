@@ -15,11 +15,11 @@
         <start-class>ir.sadeghi.emulator.atm.AtmApp</start-class></properties>
 
     <dependencies>
-        <!--        <dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>online-table-reservation-common</artifactId>
+            <artifactId>common</artifactId>
             <version>${project.version}</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
